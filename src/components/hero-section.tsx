@@ -1,12 +1,46 @@
 import React from 'react'
 import { Button, Card, CardBody, Checkbox, Link } from '@heroui/react'
 import { motion } from 'framer-motion'
+import { Icon } from '@iconify/react'
+import emailjs from '@emailjs/browser'
+import { toast } from 'react-toastify'
 
 interface HeroSectionProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
+  const [isChecked, setIsChecked] = React.useState(false)
+
+  const form = React.useRef()
+
+  const sendEmail = (e) => {
+    e.preventDefault()
+
+    if (!form.current) return
+
+    if (!isChecked) {
+      return toast.error(
+        'Для начала ознакомьтесь с Пользовательским соглашением!'
+      )
+    }
+
+    emailjs
+      .sendForm('service_e15l5pq', 'template_hxvlllt', form.current, {
+        publicKey: '5qd7jiGymq6cMEuob'
+      })
+      .then(
+        () => {
+          e.target.reset()
+          toast.success('Спасибо, ваша заявка отправлена!')
+        },
+        (error) => {
+          e.target.reset()
+          toast.error('Извините, произошла ошибка!', error.text)
+        }
+      )
+  }
+
   return (
     <section className='relative bg-gray-100 overflow-hidden'>
       <div className='absolute inset-0 z-0'>
@@ -48,9 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
               size='lg'
               color='primary'
               className='bg-white text-primary hover:bg-gray-100'
-              onPress={() =>
-                openModal('discount', 'Получить скидку 10% на первую партию')
-              }
+              onPress={() => openModal('Получить скидку 10% на первую партию')}
             >
               Получить скидку
             </Button>
@@ -73,7 +105,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
                   ближайшее время для уточнения деталей заказа.
                 </p>
 
-                <form className='space-y-4'>
+                <form
+                  id='form'
+                  ref={form}
+                  onSubmit={(e) => sendEmail(e)}
+                  className='space-y-4'
+                >
                   <div className='form-group'>
                     <label htmlFor='name' className='form-label'>
                       Имя
@@ -81,8 +118,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
                     <input
                       type='text'
                       id='name'
+                      name='name'
                       className='form-input'
                       placeholder='Ваше имя'
+                      required
                     />
                   </div>
 
@@ -93,8 +132,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
                     <input
                       type='tel'
                       id='phone'
+                      name='phone'
                       className='form-input'
                       placeholder='+7 (___) ___-__-__'
+                      required
                     />
                   </div>
 
@@ -105,16 +146,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
                     <input
                       type='email'
                       id='email'
+                      name='email'
                       className='form-input'
                       placeholder='example@mail.ru'
+                      required
                     />
                   </div>
 
-                  <Button color='primary' className='w-full' type='submit'>
+                  <Button
+                    form='form'
+                    color='primary'
+                    type='submit'
+                    endContent={<Icon icon='lucide:send' />}
+                  >
                     Отправить заявку
                   </Button>
 
-                  <Checkbox>
+                  <Checkbox isSelected={isChecked} onValueChange={setIsChecked}>
                     <div className='text-xs text-gray-500'>
                       Я ознакомлен(а) с{' '}
                       <Link

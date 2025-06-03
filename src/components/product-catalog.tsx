@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 
 interface ProductCatalogProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 interface Product {
@@ -110,7 +110,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     color='primary'
                     variant='light'
                     onPress={() =>
-                      openModal('product', `Запрос информации: ${product.name}`)
+                      openModal(`Запрос информации: ${product.name}`)
                     }
                   >
                     Подробнее
@@ -118,9 +118,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                   <Button
                     color='primary'
                     variant='solid'
-                    onPress={() =>
-                      openModal('order', `Заказать: ${product.name}`)
-                    }
+                    onPress={() => openModal(`Заказать: ${product.name}`)}
                   >
                     Заказать
                   </Button>
@@ -135,7 +133,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
             color='primary'
             size='lg'
             endContent={<Icon icon='lucide:download' />}
-            onPress={() => openModal('price', 'Запросить прайс-лист')}
+            onPress={() => openModal('Запросить прайс-лист')}
           >
             Запросить прайс-лист
           </Button>

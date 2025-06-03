@@ -14,7 +14,7 @@ import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 
 interface MatsMPSectionProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 export const MatsMPSection: React.FC<MatsMPSectionProps> = ({ openModal }) => {
@@ -75,9 +75,7 @@ export const MatsMPSection: React.FC<MatsMPSectionProps> = ({ openModal }) => {
                   <Button
                     color='primary'
                     endContent={<Icon icon='lucide:file-text' />}
-                    onPress={() =>
-                      openModal('pdf', 'Скачать техническое описание')
-                    }
+                    onPress={() => openModal('Скачать техническое описание')}
                   >
                     Скачать полное техническое описание в PDF
                   </Button>
@@ -137,10 +135,7 @@ export const MatsMPSection: React.FC<MatsMPSectionProps> = ({ openModal }) => {
                     color='primary'
                     variant='solid'
                     onPress={() =>
-                      openModal(
-                        'consultation',
-                        'Получить консультацию по матам МП ГОСТ'
-                      )
+                      openModal('Получить консультацию по матам МП ГОСТ')
                     }
                   >
                     Получить консультацию специалиста

@@ -3,7 +3,11 @@ import { Card, CardBody, Button } from '@heroui/react'
 import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 
-export const ContactSection: React.FC = () => {
+interface ContactProps {
+  openModal: (title: string) => void
+}
+
+export const ContactSection: React.FC<ContactProps> = ({ openModal }) => {
   return (
     <section id='contacts' className='bg-white'>
       <div className='section-container'>
@@ -127,16 +131,15 @@ export const ContactSection: React.FC = () => {
                 ближайшее время
               </p>
             </div>
-            <form className='w-full md:w-auto flex flex-col md:flex-row gap-3'>
-              <input
-                type='tel'
-                placeholder='Ваш телефон'
-                className='form-input md:w-64'
-              />
-              <Button color='primary' type='submit'>
-                Заказать звонок
-              </Button>
-            </form>
+            <Button
+              color='primary'
+              variant='solid'
+              startContent={<Icon icon='lucide:phone' />}
+              onPress={() => openModal('Заказать обратный звонок')}
+            >
+              <span className='hidden sm:inline'>Обратный звонок</span>
+              <span className='sm:hidden'>Звонок</span>
+            </Button>
           </div>
         </div>
       </div>

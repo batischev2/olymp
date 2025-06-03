@@ -3,7 +3,7 @@ import { Card, CardBody, Button } from '@heroui/react'
 import { motion } from 'framer-motion'
 
 interface ProjectExamplesProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 interface Project {
@@ -102,10 +102,7 @@ export const ProjectExamples: React.FC<ProjectExamplesProps> = ({
                     variant='light'
                     className='w-full'
                     onPress={() =>
-                      openModal(
-                        'project',
-                        `Подробнее о проекте: ${project.title}`
-                      )
+                      openModal(`Подробнее о проекте: ${project.title}`)
                     }
                   >
                     Подробнее о проекте
@@ -120,9 +117,7 @@ export const ProjectExamples: React.FC<ProjectExamplesProps> = ({
           <Button
             color='primary'
             size='lg'
-            onPress={() =>
-              openModal('solution', 'Подобрать решение для объекта')
-            }
+            onPress={() => openModal('Подобрать решение для объекта')}
           >
             Подберём оптимальное решение
           </Button>

@@ -5,9 +5,9 @@ export const Footer: React.FC = () => {
   return (
     <footer className='bg-gray-900 text-white'>
       <div className='max-w-7xl mx-auto px-4 lg:px-8 py-12'>
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           <div className='col-span-1 md:col-span-1'>
-            <div className='flex items-center gap-2 mb-4'>
+            <div className='flex gap-2 mb-4'>
               <img
                 src='https://olimp-teplo.ru/wp-content/uploads/2024/12/group-214.png'
                 alt='Olimp-Teplo'

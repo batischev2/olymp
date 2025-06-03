@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 
 interface CompanyAdvantagesProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 interface Advantage {
@@ -116,9 +116,7 @@ export const CompanyAdvantages: React.FC<CompanyAdvantagesProps> = ({
             <Button
               color='primary'
               size='lg'
-              onPress={() =>
-                openModal('commercial', 'Получить коммерческое предложение')
-              }
+              onPress={() => openModal('Получить коммерческое предложение')}
             >
               Получить предложение
             </Button>

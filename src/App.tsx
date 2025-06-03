@@ -13,14 +13,13 @@ import { ContactSection } from './components/contact-section'
 import { Footer } from './components/footer'
 import { Modal, useDisclosure } from '@heroui/react'
 import { LeadForm } from './components/lead-form'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 export default function App() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
-  const [modalType, setModalType] = React.useState<string>('discount')
   const [modalTitle, setModalTitle] = React.useState<string>('')
 
-  const openModal = (type: string, title: string) => {
-    setModalType(type)
+  const openModal = (title: string) => {
     setModalTitle(title)
     onOpen()
   }
@@ -39,14 +38,25 @@ export default function App() {
         <Certificates />
         <WorkSteps openModal={openModal} />
         <PaymentDelivery openModal={openModal} />
-        <ContactSection />
+        <ContactSection openModal={openModal} />
       </main>
 
       <Footer />
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size='md'>
-        <LeadForm type={modalType} title={modalTitle} onClose={onClose} />
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement={'center'}>
+        <LeadForm title={modalTitle} onClose={onClose} />
       </Modal>
+
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick={true}
+        draggable
+        theme='light'
+        transition={Bounce}
+      />
     </div>
   )
 }

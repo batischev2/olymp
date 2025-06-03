@@ -10,7 +10,7 @@ import {
 import { Icon } from '@iconify/react'
 
 interface HeaderProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 export const Header: React.FC<HeaderProps> = ({ openModal }) => {
@@ -65,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({ openModal }) => {
             color='primary'
             variant='solid'
             startContent={<Icon icon='lucide:phone' />}
-            onPress={() => openModal('callback', 'Заказать обратный звонок')}
+            onPress={() => openModal('Заказать обратный звонок')}
           >
             <span className='hidden sm:inline'>Обратный звонок</span>
             <span className='sm:hidden'>Звонок</span>

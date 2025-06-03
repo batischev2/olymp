@@ -1,9 +1,42 @@
 import React from 'react'
-import { Card, CardBody, Button, Textarea, Checkbox, Link } from '@heroui/react'
+import { Card, CardBody, Button, Checkbox, Link } from '@heroui/react'
 import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
+import emailjs from '@emailjs/browser'
+import { toast } from 'react-toastify'
 
 export const ContactForm: React.FC = () => {
+  const [isChecked, setIsChecked] = React.useState(false)
+
+  const form = React.useRef()
+
+  const sendEmail = (e) => {
+    e.preventDefault()
+
+    if (!form.current) return
+
+    if (!isChecked) {
+      return toast.error(
+        'Для начала ознакомьтесь с Пользовательским соглашением!'
+      )
+    }
+
+    emailjs
+      .sendForm('service_e15l5pq', 'template_hxvlllt', form.current, {
+        publicKey: '5qd7jiGymq6cMEuob'
+      })
+      .then(
+        () => {
+          e.target.reset()
+          toast.success('Спасибо, ваша заявка отправлена!')
+        },
+        (error) => {
+          e.target.reset()
+          toast.error('Извините, произошла ошибка!', error.text)
+        }
+      )
+  }
+
   return (
     <section className='bg-white'>
       <div className='section-container'>
@@ -33,46 +66,72 @@ export const ContactForm: React.FC = () => {
                 материалов для вашего объекта.
               </p>
 
-              <form className='space-y-4'>
+              <form
+                id='form'
+                ref={form}
+                onSubmit={(e) => sendEmail(e)}
+                className='space-y-4'
+              >
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <div className='form-group'>
-                    <label htmlFor='contact-name' className='form-label'>
+                    <label htmlFor='name' className='form-label'>
                       Имя
                     </label>
                     <input
                       type='text'
-                      id='contact-name'
+                      id='name'
+                      name='name'
                       className='form-input'
                       placeholder='Ваше имя'
+                      required
                     />
                   </div>
 
                   <div className='form-group'>
-                    <label htmlFor='contact-phone' className='form-label'>
+                    <label htmlFor='phone' className='form-label'>
                       Телефон
                     </label>
                     <input
                       type='tel'
-                      id='contact-phone'
+                      id='phone'
+                      name='phone'
                       className='form-input'
                       placeholder='+7 (___) ___-__-__'
+                      required
                     />
                   </div>
                 </div>
 
                 <div className='form-group'>
-                  <label htmlFor='contact-message' className='form-label'>
+                  <label htmlFor='email' className='form-label'>
+                    Email
+                  </label>
+                  <input
+                    type='email'
+                    id='email'
+                    name='email'
+                    className='form-input'
+                    placeholder='example@mail.ru'
+                    required
+                  />
+                </div>
+
+                <div className='form-group'>
+                  <label htmlFor='message' className='form-label'>
                     Сообщение
                   </label>
-                  <Textarea
-                    id='contact-message'
+                  <textarea
+                    id='message'
+                    name='message'
                     placeholder='Опишите ваш объект и требования к теплоизоляции'
-                    className='w-full min-h-[120px]'
+                    className='form-input'
+                    required
                   />
                 </div>
 
                 <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
                   <Button
+                    form='form'
                     color='primary'
                     type='submit'
                     endContent={<Icon icon='lucide:send' />}
@@ -80,7 +139,7 @@ export const ContactForm: React.FC = () => {
                     Отправить заявку
                   </Button>
 
-                  <Checkbox>
+                  <Checkbox isSelected={isChecked} onValueChange={setIsChecked}>
                     <div className='text-xs text-gray-500'>
                       Я ознакомлен(а) с{' '}
                       <Link

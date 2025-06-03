@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 
 interface PaymentDeliveryProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 export const PaymentDelivery: React.FC<PaymentDeliveryProps> = ({
@@ -50,9 +50,7 @@ export const PaymentDelivery: React.FC<PaymentDeliveryProps> = ({
                   color='primary'
                   variant='light'
                   className='w-full'
-                  onPress={() =>
-                    openModal('payment', 'Уточнить условия оплаты')
-                  }
+                  onPress={() => openModal('Уточнить условия оплаты')}
                 >
                   Уточнить условия оплаты
                 </Button>
@@ -93,9 +91,7 @@ export const PaymentDelivery: React.FC<PaymentDeliveryProps> = ({
                   color='primary'
                   variant='light'
                   className='w-full'
-                  onPress={() =>
-                    openModal('delivery', 'Уточнить условия доставки')
-                  }
+                  onPress={() => openModal('Уточнить условия доставки')}
                 >
                   Уточнить условия доставки
                 </Button>
@@ -133,9 +129,7 @@ export const PaymentDelivery: React.FC<PaymentDeliveryProps> = ({
                   color='primary'
                   variant='light'
                   className='w-full'
-                  onPress={() =>
-                    openModal('order', 'Уточнить минимальный объем заказа')
-                  }
+                  onPress={() => openModal('Уточнить минимальный объем заказа')}
                 >
                   Уточнить минимальный объем
                 </Button>

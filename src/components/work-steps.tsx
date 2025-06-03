@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 
 interface WorkStepsProps {
-  openModal: (type: string, title: string) => void
+  openModal: (title: string) => void
 }
 
 interface Step {
@@ -84,9 +84,7 @@ export const WorkSteps: React.FC<WorkStepsProps> = ({ openModal }) => {
           <Button
             color='primary'
             size='lg'
-            onPress={() =>
-              openModal('consultation', 'Запросить бесплатную консультацию')
-            }
+            onPress={() => openModal('Запросить бесплатную консультацию')}
           >
             Запросить бесплатную консультацию
           </Button>

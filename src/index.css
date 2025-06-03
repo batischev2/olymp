@@ -5,6 +5,8 @@
 
 :root {
   --header-height: 80px;
+  --heroui-focus: 217 91% 60% / 0;
+  --heroui-focus-opacity: 0%;
 }
 
 html {
