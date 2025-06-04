@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 import emailjs from '@emailjs/browser'
 import { toast } from 'react-toastify'
+import InputMask from 'react-input-mask'
 
 interface HeroSectionProps {
   openModal: (title: string) => void
@@ -11,6 +12,8 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
   const [isChecked, setIsChecked] = React.useState(false)
+
+  const [phone, setPhone] = React.useState('')
 
   const form = React.useRef()
 
@@ -106,7 +109,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
                 </p>
 
                 <form
-                  id='form'
+                  id='main-form'
                   ref={form}
                   onSubmit={(e) => sendEmail(e)}
                   className='space-y-4'
@@ -129,13 +132,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
                     <label htmlFor='phone' className='form-label'>
                       Телефон
                     </label>
-                    <input
-                      type='tel'
+                    <InputMask
                       id='phone'
                       name='phone'
                       className='form-input'
-                      placeholder='+7 (___) ___-__-__'
-                      required
+                      mask='+7 (999) 999-99-99'
+                      alwaysShowMask
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
 
@@ -154,7 +158,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ openModal }) => {
                   </div>
 
                   <Button
-                    form='form'
+                    form='main-form'
                     color='primary'
                     type='submit'
                     endContent={<Icon icon='lucide:send' />}

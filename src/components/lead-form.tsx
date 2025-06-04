@@ -10,6 +10,7 @@ import {
 import { Icon } from '@iconify/react'
 import emailjs from '@emailjs/browser'
 import { toast } from 'react-toastify'
+import InputMask from 'react-input-mask'
 
 interface LeadFormProps {
   title: string
@@ -19,6 +20,8 @@ interface LeadFormProps {
 export const LeadForm: React.FC<LeadFormProps> = ({ title }) => {
   const [isChecked, setIsChecked] = React.useState(false)
   const [isSuccess, setIsSuccess] = React.useState(false)
+
+  const [phone, setPhone] = React.useState('')
 
   const form = React.useRef()
 
@@ -67,7 +70,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ title }) => {
             </p>
           </div>
         ) : (
-          <form id='form' ref={form} onSubmit={(e) => sendEmail(e)}>
+          <form id='lead-form' ref={form} onSubmit={(e) => sendEmail(e)}>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <div className='form-group'>
                 <label htmlFor='name' className='form-label'>
@@ -87,13 +90,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({ title }) => {
                 <label htmlFor='phone' className='form-label'>
                   Телефон
                 </label>
-                <input
-                  type='tel'
+                <InputMask
                   id='phone'
                   name='phone'
                   className='form-input'
-                  placeholder='+7 (___) ___-__-__'
-                  required
+                  mask='+7 (999) 999-99-99'
+                  alwaysShowMask
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
             </div>
@@ -139,7 +143,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ title }) => {
               </Checkbox>
 
               <Button
-                form='form'
+                form='lead-form'
                 color='primary'
                 type='submit'
                 endContent={<Icon icon='lucide:send' />}

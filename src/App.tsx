@@ -43,7 +43,12 @@ export default function App() {
 
       <Footer />
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement={'center'}>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement={'center'}
+        size={'2xl'}
+      >
         <LeadForm title={modalTitle} onClose={onClose} />
       </Modal>
 

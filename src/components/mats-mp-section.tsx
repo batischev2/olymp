@@ -77,7 +77,7 @@ export const MatsMPSection: React.FC<MatsMPSectionProps> = ({ openModal }) => {
                     endContent={<Icon icon='lucide:file-text' />}
                     onPress={() => openModal('Скачать техническое описание')}
                   >
-                    Скачать полное техническое описание в PDF
+                    Скачать техническое описание
                   </Button>
                 </div>
               </CardBody>

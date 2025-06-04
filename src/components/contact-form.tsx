@@ -4,9 +4,12 @@ import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 import emailjs from '@emailjs/browser'
 import { toast } from 'react-toastify'
+import InputMask from 'react-input-mask'
 
 export const ContactForm: React.FC = () => {
   const [isChecked, setIsChecked] = React.useState(false)
+
+  const [phone, setPhone] = React.useState('')
 
   const form = React.useRef()
 
@@ -67,7 +70,7 @@ export const ContactForm: React.FC = () => {
               </p>
 
               <form
-                id='form'
+                id='contact-form'
                 ref={form}
                 onSubmit={(e) => sendEmail(e)}
                 className='space-y-4'
@@ -91,13 +94,14 @@ export const ContactForm: React.FC = () => {
                     <label htmlFor='phone' className='form-label'>
                       Телефон
                     </label>
-                    <input
-                      type='tel'
+                    <InputMask
                       id='phone'
                       name='phone'
                       className='form-input'
-                      placeholder='+7 (___) ___-__-__'
-                      required
+                      mask='+7 (999) 999-99-99'
+                      alwaysShowMask
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
                 </div>
@@ -131,7 +135,7 @@ export const ContactForm: React.FC = () => {
 
                 <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
                   <Button
-                    form='form'
+                    form='contact-form'
                     color='primary'
                     type='submit'
                     endContent={<Icon icon='lucide:send' />}
